@@ -16,7 +16,9 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import { ArrowRight, ChessPawn } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -38,78 +40,97 @@ export default function Home() {
     }
   };
 
-  if (!gameStarted) {
-    return (
-      <main className="min-h-screen flex items-center justify-center p-4">
-        <div className="fixed top-4 right-4">
-          <ThemeToggle />
-        </div>
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle className="text-3xl">♔ Chess ♚</CardTitle>
-            <CardDescription>
-              Enter player names to start a 1v1 game
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="player1">Player 1 (White)</Label>
-              <InputGroup>
-                <InputGroupInput
-                  id="player1"
-                  value={player1Name}
-                  onChange={(e) => setPlayer1Name(e.target.value)}
-                  placeholder="Enter player 1 name"
-                />
-                <InputGroupAddon>
-                  <ChessPawn className="text-black" />
-                </InputGroupAddon>
-              </InputGroup>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="player2">Player 2 (Black)</Label>
-              <InputGroup>
-                <InputGroupInput
-                  id="player2"
-                  value={player2Name}
-                  onChange={(e) => setPlayer2Name(e.target.value)}
-                  placeholder="Enter player 2 name"
-                />
-                <InputGroupAddon>
-                  <ChessPawn className="text-black" />
-                </InputGroupAddon>
-              </InputGroup>
-            </div>
-            <Button onClick={handleStartGame} className="w-full" size="lg">
-              Start Game <ArrowRight className="ml-2" />
-            </Button>
-          </CardContent>
-        </Card>
-      </main>
-    );
-  }
-
   return (
-    <main className="min-h-screen p-2 sm:p-4 md:p-8">
-      <div className="max-w-5xl mx-auto">
-        <header className="text-center mb-4 sm:mb-6 relative">
-          <div className="absolute right-0 top-0">
+    <main
+      className={cn(
+        !gameStarted && "min-h-screen flex flex-col",
+        gameStarted && "min-h-screen p-2 sm:p-4 md:p-8"
+      )}
+    >
+      {!gameStarted && (
+        <div className="flex flex-1 items-center justify-center p-4">
+          <div className="fixed top-4 right-4">
             <ThemeToggle />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold">♔ Chess ♚</h1>
-          <p className="text-muted-foreground mt-1 text-sm sm:text-base">
-            {player1Name} vs {player2Name}
+          <Card className="w-full max-w-md">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl">♔ Chess ♚</CardTitle>
+              <CardDescription>
+                Enter player names to start a 1v1 game
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="player1">Player 1 (White)</Label>
+                <InputGroup>
+                  <InputGroupInput
+                    id="player1"
+                    value={player1Name}
+                    onChange={(e) => setPlayer1Name(e.target.value)}
+                    placeholder="Enter player 1 name"
+                  />
+                  <InputGroupAddon>
+                    <ChessPawn className="text-black" />
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="player2">Player 2 (Black)</Label>
+                <InputGroup>
+                  <InputGroupInput
+                    id="player2"
+                    value={player2Name}
+                    onChange={(e) => setPlayer2Name(e.target.value)}
+                    placeholder="Enter player 2 name"
+                  />
+                  <InputGroupAddon>
+                    <ChessPawn className="text-black" />
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <Button onClick={handleStartGame} className="w-full" size="lg">
+                Start Game <ArrowRight className="ml-2" />
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {gameStarted && (
+        <div className="max-w-5xl mx-auto">
+          <header className="text-center mb-4 sm:mb-6 relative">
+            <div className="absolute right-0 top-0">
+              <ThemeToggle />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold">♔ Chess ♚</h1>
+            <p className="text-muted-foreground mt-1 text-sm sm:text-base">
+              {player1Name} vs {player2Name}
+            </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="mt-2"
+              onClick={() => setGameStarted(false)}
+            >
+              Change Players
+            </Button>
+          </header>
+          <ChessGame player1Name={player1Name} player2Name={player2Name} />
+        </div>
+      )}
+      <div className="border-t flex justify-center">
+        <div className="container p-4 flex justify-between text-muted-foreground px-10">
+          <p>&copy; 2025 Romel Sikdar</p>
+          <p>
+            Made with ❤️ by{" "}
+            <Link
+              href="https://www.instagram.com/aditya.sikdar"
+              className="underline"
+            >
+              Romel
+            </Link>
           </p>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="mt-2"
-            onClick={() => setGameStarted(false)}
-          >
-            Change Players
-          </Button>
-        </header>
-        <ChessGame player1Name={player1Name} player2Name={player2Name} />
+        </div>
       </div>
     </main>
   );
