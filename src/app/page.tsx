@@ -121,7 +121,7 @@ export default function Home() {
         </div>
       )}
       <div className="border-t flex justify-center">
-        <div className="container p-4 flex justify-between text-muted-foreground px-10">
+        <div className="container p-4 flex flex-col sm:flex-row items-center justify-between text-muted-foreground px-10">
           <p>&copy; 2025 Romel Sikdar</p>
           <p>
             Made with ❤️ by{" "}
