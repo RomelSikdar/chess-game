@@ -24,7 +24,7 @@ export function ChessPiece({ piece, isSelected }: ChessPieceProps) {
     >
       <i
         className={cn(
-          "size-9",
+          "md:size-9 size-5",
           getPieceSymbol(piece),
           resolvedTheme === "light" &&
             piece.color === "white" &&

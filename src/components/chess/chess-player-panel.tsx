@@ -87,7 +87,7 @@ export function ChessPlayerPanel({
             >
               <i
                 className={cn(
-                  "size-9",
+                  "md:size-9 size-5",
                   getPieceSymbol(piece),
                   resolvedTheme === "light" && "text-gray-800"
                 )}
