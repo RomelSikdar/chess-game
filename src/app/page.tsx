@@ -44,7 +44,7 @@ export default function Home() {
     <main
       className={cn(
         !gameStarted && "min-h-screen flex flex-col",
-        gameStarted && "min-h-screen p-2 sm:p-4 md:p-8"
+        gameStarted && "min-h-screen flex flex-col"
       )}
     >
       {!gameStarted && (
@@ -97,25 +97,27 @@ export default function Home() {
       )}
 
       {gameStarted && (
-        <div className="max-w-5xl mx-auto">
-          <header className="text-center mb-4 sm:mb-6 relative">
-            <div className="absolute right-0 top-0">
-              <ThemeToggle />
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-bold">♔ Chess ♚</h1>
-            <p className="text-muted-foreground mt-1 text-sm sm:text-base">
-              {player1Name} vs {player2Name}
-            </p>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="mt-2"
-              onClick={() => setGameStarted(false)}
-            >
-              Change Players
-            </Button>
-          </header>
-          <ChessGame player1Name={player1Name} player2Name={player2Name} />
+        <div className="p-2 sm:p-4 md:p-8 flex-1">
+          <div className="max-w-5xl mx-auto">
+            <header className="text-center mb-4 sm:mb-6 relative">
+              <div className="absolute right-0 top-0">
+                <ThemeToggle />
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-bold">♔ Chess ♚</h1>
+              <p className="text-muted-foreground mt-1 text-sm sm:text-base">
+                {player1Name} vs {player2Name}
+              </p>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="mt-2"
+                onClick={() => setGameStarted(false)}
+              >
+                Change Players
+              </Button>
+            </header>
+            <ChessGame player1Name={player1Name} player2Name={player2Name} />
+          </div>
         </div>
       )}
       <div className="border-t flex justify-center">
